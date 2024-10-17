@@ -1,0 +1,17 @@
+name: docker-build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: http://192.168.1.22:9000/actions/checkout@v4
+        
+        - name: Build Docker image
+          uses: http://192.168.1.22:9000/docker/build-push-action@v5
+            with:
+              contest: .
+              push: true
+              tag: 192.168.1.22:5000/LLM-test:${{ gitea.sha }}
+
+        - run: echo "iamge is in 192.168.1.22:5000/LLM-test:${{ gitea.sha }}"
